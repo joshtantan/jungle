@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe Product, type: :model do
   describe "Validations" do
-    before(:each) do
+    before do
       @category = Category.create! name: "Category Alpha"
     end
 
