@@ -7,7 +7,7 @@ RSpec.describe Product, type: :model do
     end
 
     context "with name, price, quantity, category set" do
-      it "raises no error and saves the correct data" do
+      it "saves the correct data" do
         @product = @category.products.new({
           name: "Product Alpha",
           price: 2.25,

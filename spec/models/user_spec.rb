@@ -7,8 +7,8 @@ RSpec.describe User, type: :model do
         @user = User.new({
           name: "User Alpha",
           email: "user_alpha@email.com",
-          password: "password0",
-          password_confirmation: "password0",
+          password: "Password0",
+          password_confirmation: "Password0",
         })
 
         expect(@user).to be_valid
@@ -75,13 +75,108 @@ RSpec.describe User, type: :model do
     end
   end
 
-  # describe ".authenticate_with_credentials" do
-  #   # examples for this class method here
-  #   # test email and correct password
-  #   # test email with incorrect password
-  #   # test email with whitespace before and correct password
-  #   # test email with whitespace after and correct password
-  #   # test email with whitespace before and after and correct password
-  #   # test email with different casing and correct password
-  # end
+  describe ".authenticate_with_credentials" do
+    before do
+      User.create!({
+        name: "User Foxtrot",
+        email: "user_foxtrot@email.com",
+        password: "Password6",
+        password_confirmation: "Password6",
+      })
+    end
+
+    context "with email and correct password" do
+      it "returns the correct user" do
+        params = {
+          email: "user_foxtrot@email.com",
+          password: "Password6",
+        }
+        user = User.authenticate_with_credentials(params[:email], params[:password])
+
+        expect(user).to_not be_nil
+        expect(user.name).to include("User Foxtrot")
+        expect(user.email).to include("user_foxtrot@email.com")
+      end
+    end
+
+    context "with email and incorrect password" do
+      it "returns nil" do
+        params = {
+          email: "user_foxtrot@email.com",
+          password: "Password7",
+        }
+        user = User.authenticate_with_credentials(params[:email], params[:password])
+
+        expect(user).to be_nil
+      end
+    end
+
+    context "with unregistered email and password" do
+      it "returns nil" do
+        params = {
+          email: "unregistered@email.com",
+          password: "Unregistered0",
+        }
+        user = User.authenticate_with_credentials(params[:email], params[:password])
+
+        expect(user).to be_nil
+      end
+    end
+
+    context "with email with whitespace before and correct password" do
+      it "returns the correct user" do
+        params = {
+          email: "  user_foxtrot@email.com",
+          password: "Password6",
+        }
+        user = User.authenticate_with_credentials(params[:email], params[:password])
+
+        expect(user).to_not be_nil
+        expect(user.name).to include("User Foxtrot")
+        expect(user.email).to include("user_foxtrot@email.com")
+      end
+    end
+
+    context "with email with whitespace after and correct password" do
+      it "returns the correct user" do
+        params = {
+          email: "user_foxtrot@email.com  ",
+          password: "Password6",
+        }
+        user = User.authenticate_with_credentials(params[:email], params[:password])
+
+        expect(user).to_not be_nil
+        expect(user.name).to include("User Foxtrot")
+        expect(user.email).to include("user_foxtrot@email.com")
+      end
+    end
+
+    context "with email with whitespace before and after and correct password" do
+      it "returns the correct user" do
+        params = {
+          email: "  user_foxtrot@email.com  ",
+          password: "Password6",
+        }
+        user = User.authenticate_with_credentials(params[:email], params[:password])
+
+        expect(user).to_not be_nil
+        expect(user.name).to include("User Foxtrot")
+        expect(user.email).to include("user_foxtrot@email.com")
+      end
+    end
+
+    context "with email with incorrect casing and correct password" do
+      it "returns the correct user" do
+        params = {
+          email: "  uSeR_foXtRot@Email.COM  ",
+          password: "Password6",
+        }
+        user = User.authenticate_with_credentials(params[:email], params[:password])
+
+        expect(user).to_not be_nil
+        expect(user.name).to include("User Foxtrot")
+        expect(user.email).to include("user_foxtrot@email.com")
+      end
+    end
+  end
 end
