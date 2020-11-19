@@ -5,13 +5,13 @@ Jungle is an eCommerce web application for a basic online store built with Ruby 
 ## Final Product
 
 ### Cart Adding and Editing
-!["Screengrab of cart adding and editing"]() 
+!["Screengrab of cart adding and editing"](https://github.com/joshtantan/jungle/blob/master/docs/cart_add_edit.gif) 
 
 ### Cart Checkout with Stripe
-!["Screengrab of cart checkout with Stripe"]() 
+!["Screengrab of cart checkout with Stripe"](https://github.com/joshtantan/jungle/blob/master/docs/cart_payment.gif) 
 
 ### Admin Products and Categories with Required Login
-!["Screengrab of admin products and categories with required login"]() 
+!["Screengrab of admin products and categories with required login"](https://github.com/joshtantan/jungle/blob/master/docs/admin_categories_products.gif) 
 
 ## Dependencies
 
